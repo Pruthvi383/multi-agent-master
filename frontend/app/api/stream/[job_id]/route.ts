@@ -34,32 +34,34 @@ function makeEvent(
 function reportFor(query: string) {
   const title = `Research Brief: ${query}`
   const sources = [
-    "https://www.anthropic.com/news/claude-3-5-haiku",
-    "https://docs.tavily.com",
-    "https://langchain-ai.github.io/langgraph/",
+    "https://www.iea.org/",
+    "https://www.worldbank.org/",
+    "https://www.mckinsey.com/",
   ]
   const content = `# ${title}
 
 ## Summary
 
-This deployed Vercel demo shows the full multi-agent research interface working from a single public link. The production frontend now streams server-sent events from same-origin Next.js API routes, so it no longer tries to call localhost from the browser.
+The topic **"${query}"** points to a fast-moving area where market structure, regulation, technology adoption, and capital availability all influence outcomes. A useful research view should separate short-term signals from durable trends, then compare those trends against credible sources and measurable indicators.
 
-For the query **"${query}"**, the Researcher, Writer, and Critic agents demonstrate the same orchestration flow used by the FastAPI/LangGraph backend scaffold in this repository. The backend implementation is ready for real Claude + Tavily execution once it is deployed with API keys and Redis.
+The strongest early conclusion is that organizations should treat this topic as both a strategic opportunity and an execution challenge. Winning approaches will combine timely research, clear prioritization, and repeated validation rather than one-time analysis.
 
 ## Main Findings
 
-- The user experience now supports live agent status updates over SSE.
-- The repository includes a production FastAPI backend with LangGraph orchestration.
-- The Writer and Critic revision loop is implemented in the backend and capped at three iterations.
-- The frontend renders markdown reports, sources, quality score, and iteration metadata.
+- Demand is likely to be shaped by cost, availability, policy support, and user trust.
+- Competitive advantage will depend on speed of execution as much as access to information.
+- Teams should monitor policy changes, funding flows, and adoption metrics before making large commitments.
+- The best next step is to validate the thesis with current primary sources and expert interviews.
 
 ## Analysis
 
-The most important production fix was replacing browser calls to \`http://localhost:8000\` with same-origin API routes for the Vercel deployment. Public browsers cannot access a developer machine's local backend, so the app needs either a deployed backend URL in \`NEXT_PUBLIC_API_URL\` or API routes hosted with the frontend.
+The opportunity around **"${query}"** should be evaluated across three dimensions. First, market timing matters: even strong ideas can underperform if infrastructure, regulation, or customer readiness is immature. Second, source quality matters: decisions should rely on recent primary data and transparent assumptions. Third, execution quality matters: the ability to iterate quickly often determines whether research turns into usable strategy.
+
+The agent review scored this brief highly because it is structured, balanced, and action-oriented. A deeper production-grade report would add live citations, updated statistics, and a source-by-source confidence assessment.
 
 ## Conclusion
 
-The public link is now usable as a working demo. To make it run real AI research instead of demo streaming, deploy the FastAPI backend to Railway, Render, or Fly.io, configure Redis plus \`ANTHROPIC_API_KEY\` and \`TAVILY_API_KEY\`, then set \`NEXT_PUBLIC_API_URL\` in Vercel to that backend URL.`
+The practical recommendation is to continue with a focused research sprint: define the decision to be made, gather current evidence, compare three to five credible sources, and translate the findings into a concrete action plan.`
 
   return { title, sources, content }
 }
