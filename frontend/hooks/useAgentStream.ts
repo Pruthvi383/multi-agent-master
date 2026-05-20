@@ -4,7 +4,7 @@ import { useCallback, useRef } from "react"
 import { useAgentStore } from "@/store/agentStore"
 import { AgentEvent } from "@/types/agent"
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || ""
 
 export function useAgentStream() {
   const eventSourceRef = useRef<EventSource | null>(null)
@@ -27,10 +27,15 @@ export function useAgentStream() {
           throw new Error(detail || "Failed to start research job")
         }
 
-        const { job_id } = (await response.json()) as { job_id: string; status: string }
+        const { job_id, stream_url } = (await response.json()) as {
+          job_id: string
+          status: string
+          stream_url?: string
+        }
         startJob(job_id)
 
-        const eventSource = new EventSource(`${API_BASE}/api/stream/${job_id}`)
+        const streamUrl = stream_url ?? `${API_BASE}/api/stream/${job_id}`
+        const eventSource = new EventSource(streamUrl)
         eventSourceRef.current = eventSource
 
         eventSource.onmessage = (event) => {
